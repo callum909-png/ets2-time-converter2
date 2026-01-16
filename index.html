@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ETS2 Time Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e1e;
+            color: #ffffff;
+            text-align: center;
+            padding: 40px;
+        }
+        input {
+            width: 80px;
+            padding: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>ETS2 Game Time → Real Time</h1>
+
+<p>Enter remaining drive time (game time):</p>
+
+Hours:
+<input type="number" id="hours" value="0" min="0">
+Minutes:
+<input type="number" id="minutes" value="0" min="0">
+Seconds:
+<input type="number" id="seconds" value="0" min="0">
+
+<br>
+<button onclick="convertTime()">Convert</button>
+
+<div class="result" id="output"></div>
+
+<script>
+function convertTime() {
+    const hours = Number(document.getElementById("hours").value);
+    const minutes = Number(document.getElementById("minutes").value);
+    const seconds = Number(document.getElementById("seconds").value);
+
+    // Convert game time to seconds
+    const gameSeconds = (hours * 3600) + (minutes * 60) + seconds;
+
+    // Conversion rate: 1 game second = 0.05 real seconds
+    const realSeconds = gameSeconds * 0.05;
+
+    // Convert real seconds to h:m:s
+    const realHours = Math.floor(realSeconds / 3600);
+    const realMinutes = Math.floor((realSeconds % 3600) / 60);
+    const realRemainingSeconds = Math.round(realSeconds % 60);
+
+    document.getElementById("output").innerHTML =
+        `Real time: <b>${realHours}h ${realMinutes}m ${realRemainingSeconds}s</b>`;
+}
+</script>
+
+</body>
+</html>
